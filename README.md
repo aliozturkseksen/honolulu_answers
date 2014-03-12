@@ -29,40 +29,11 @@ Once your AWS CLI tools are set up, clone this repo and this command will build 
 
 ### Changes made to this Github Fork
 
-A majority of the changes made to this github fork were additions in the [`infrastructure/`](https://github.com/stelligent/honolulu_answers/tree/master/infrastructure) directory of this repo. Our scripts for building up the different AWS resources were added here. 
-- [`build.sh`](https://github.com/stelligent/honolulu_answers/tree/master/build.sh) - runs the unit tests for the application.
-- [`infrastructure/build-and-deploy.sh`](https://github.com/stelligent/honolulu_answers/tree/master/infrastructure/build-and-deploy.sh) bash script that builds a Honolulu Answers infrastructure in AWS and then deploys the application to it. It uses other files from the infrastucture directory for building a Honolulu Answers Opsworks stack. 
-- [`infrastructure/config/honolulu.template`](https://github.com/stelligent/honolulu_answers/tree/master/infrastructure/config/honolulu.template)  - This cloudformation template defines the RDS instances, IAM roles, and OpsWorks stacks that go into the Honolulu Answers infrastructure.
-- [`infrastructure/bin/monitor_stack.rb`](https://github.com/stelligent/honolulu_answers/tree/master/infrastructure/bin/monitor_stack.rb) This is used by Jenkins to determine if the stack is up yet.
-- [`infrastructure/test-application.sh`](https://github.com/stelligent/honolulu_answers/tree/master/infrastructure/test-application.sh) - this script is used to run the acceptance stage tests against the application.
-- [`infrastructure/terminate-env.sh`](https://github.com/stelligent/honolulu_answers/tree/master/infrastructure/terminate-env.sh) - this script is used to tear down a provisioned Honolulu Answers application.
+We made several changes to this repository, you can view them here: [Stelligent Changes to the Honolulu Answers Application](https://github.com/stelligent/honolulu_answers/wiki/Stelligent-Changes-to-the-Honolulu-Answers-Application)
 
-There were some minor changes to the app, moving some configuration out of environment variables into a configuration file. Now there's a [`config/config.yml`](https://github.com/stelligent/honolulu_answers/tree/master/config/config.yml). We now specify app configuration values in this file rather than relying on environment variables. This file is loaded using the [`config/application.rb`](https://github.com/stelligent/honolulu_answers/tree/master/config/application.rb). The modified files include:
-- [`config/initializers/tanker.rb`](https://github.com/stelligent/honolulu_answers/tree/master/config/initializers/tanker.rb)
+### Tools Used
 
-### AWS Services Used
-#### OpsWorks
-
-AWS OpsWorks is an application management service that let's you model your application infrastructure. It manages the provisioning of EC2 instances, integrates with VPC, ELB and Elastic IP and provides Auto Healing and Monitoring. OpsWorks can be configured to make calls to your Chef cookbooks for configuring servers, run deployments, etc.
-
-#### RDS
-Amazon's Relational Database Service takes care of all the DB administration, and let's you just work with the data store. We spun up a postgreSQL RDS instance, and then configure it to work with the Honolulu Answers Application.
-
-#### CloudFormation
-AWS CloudFormation is a service for defining your AWS infrastructure requirements in an executable JSON file. AWS CloudFormation gives developers and systems administrators an easy way to create and manage a collection of related AWS resources, provisioning and updating them in an orderly and predictable fashion.
-
-### Other Tools Used
-#### Jenkins
-
-Jenkins is a Continuous Integration server that runs all of the automation code we've written. 
-
-Stelligent's CI server is running at [pipelinedemo.stelligent.com](http://pipelinedemo.stelligent.com/). It polls multiple Github repos for changes. When a change is discovered, it initiates the pipeline. If the pipeline is successful, it creates an OpsWorks stack. We run ```bluegreen``` job in Jenkins to set the IP Address of the OpsWorks stack instance and point the appdemo.stelligent.com subdomain. This automation uses [Amazon Route 53](https://aws.amazon.com/route53/).
-
-The instructions detailing how to run your own Jenkins server and pipeline are located here: [honolulu_jenkins_cookbooks](https://github.com/stelligent/honolulu_jenkins_cookbooks).
-
-#### Cucumber
-
-Cucumber is a tool for running automated tests written in a human readable feature format. 
+We're using a bunch of great tools for automating and running this application. You can view the list here: [Tools Used](https://github.com/stelligent/honolulu_answers/wiki/Tools-Used)
 
 ## Resources 
 ### Working Systems
@@ -71,8 +42,6 @@ Cucumber is a tool for running automated tests written in a human readable featu
 * [appdemo.stelligent.com](http://appdemo.stelligent.com/) - Working Honolulu Answers application based on the automation described in this README. 
 
 ### Diagrams
-![Infrastructure Architecture](https://s3.amazonaws.com/stelligent_casestudies/infrastructure_architecture_honolulu_poc.png "Infrastructure Architecture")
-
-![Infrastructure Scripts](https://s3.amazonaws.com/stelligent_casestudies/infrastructure_scripts_honolulu_poc.png "Infrastructure Scripts")
+We've put together several diagrams to help show how everything ties together. You can view them here: [Architecture and Design](https://github.com/stelligent/honolulu_answers/wiki/Architecture-and-Design)
 
 
