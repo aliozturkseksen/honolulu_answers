@@ -122,8 +122,7 @@
             }
           }
         },
-        "DefaultOs": "Ubuntu 12.04 LTS",
-        "DefaultAvailabilityZone": "us-west-2c"
+        "DefaultOs": "Ubuntu 12.04 LTS"
       }
     },
     "layer": {
