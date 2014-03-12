@@ -10,14 +10,14 @@ Hi there. We used this repo to demonstrate how to script the Honolulu Answers ap
 
     ```aws configure```
 
-Once you're AWS CLI tools are set up, clone this repo and this command will build a Honolulu Answers application infrastructure and then deploy the app to it.
+Once your AWS CLI tools are set up, clone this repo and this command will build a Honolulu Answers application infrastructure and then deploy the app to it.
 
     sudo yum -y install git
     git clone https://github.com/stelligent/honolulu_answers.git
     cd honolulu_answers/
     aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat infrastructure/config/honolulu.template`" --region us-east-1  --disable-rollback --capabilities="CAPABILITY_IAM"
 
-NOTE: Alternatively, you can use Jenkins to run through the above steps. After about 50 minutes, an Opsworks stack is created and launched. To get details:
+(*NOTE: Alternatively, you can use Jenkins to run through the above steps. To do this see, [https://github.com/stelligent/honolulu_answers_cookbooks](https://github.com/stelligent/honolulu_answers_cookbooks)*. After about 50 minutes, an Opsworks stack is created and launched. To get details:
 
 1. Log into the [OpsWorks](http://console.aws.amazon.com/opsworks) console
 3. You should see an OpsWorks stack listed named **Honolulu Answers** -- click on it. If you see more than one listed (because you kicked it off a few times), they are listed in alphabetical-then-chronological order. So the last *Honolulu Answers* stack listed will be the most recent one.
