@@ -56,7 +56,7 @@ AWS CloudFormation is a service for defining your AWS infrastructure requirement
 
 Jenkins is a Continuous Integration server that runs all of the automation code we've written. 
 
-Stelligent's CI server is running at [pipelinedemo.stelligent.com](http://pipelinedemo.stelligent.com/). It polls multiple Github repos for changes. When a change is discovered, it initiates the pipeline. If the pipeline is successful, it creates an OpsWorks stack. We copy the IP Address of the OpsWorks stack instance and point the demo.elasticoperations.com subdomain to map to this instance (this will be automated) using [Amazon Route 53](https://aws.amazon.com/route53/).
+Stelligent's CI server is running at [pipelinedemo.stelligent.com](http://pipelinedemo.stelligent.com/). It polls multiple Github repos for changes. When a change is discovered, it initiates the pipeline. If the pipeline is successful, it creates an OpsWorks stack. We run ```bluegreen``` job in Jenkins to set the IP Address of the OpsWorks stack instance and point the appdemo.stelligent.com subdomain. This automation uses [Amazon Route 53](https://aws.amazon.com/route53/).
 
 The instructions detailing how to run your own Jenkins server and pipeline are located here: [honolulu_jenkins_cookbooks](https://github.com/stelligent/honolulu_jenkins_cookbooks).
 
@@ -68,7 +68,7 @@ Cucumber is a tool for running automated tests written in a human readable featu
 ### Working Systems
 
 * [pipelinedemo.stelligent.com](http://pipelinedemo.stelligent.com/) - Working Continous Integration Server. To setup your own Jenkins server based on the same open source scripts, go to [honolulu_jenkins_cookbooks](https://github.com/stelligent/honolulu_jenkins_cookbooks).
-* [demo.elasticoperations.com](http://demo.elasticoperations.com/) - Working Honolulu Answers application based on the automation described in this README. 
+* [appdemo.stelligent.com](http://appdemo.stelligent.com/) - Working Honolulu Answers application based on the automation described in this README. 
 
 ### Diagrams
 ![Infrastructure Architecture](https://s3.amazonaws.com/stelligent_casestudies/infrastructure_architecture_honolulu_poc.png "Infrastructure Architecture")
