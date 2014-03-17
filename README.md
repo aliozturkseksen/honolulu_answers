@@ -38,7 +38,7 @@ We're using a bunch of great tools for automating and running this application. 
 ## Resources 
 ### Working Systems
 
-* [pipelinedemo.stelligent.com](http://pipelinedemo.stelligent.com/) - Working Continous Integration Server. To setup your own Jenkins server based on the same open source scripts, go to [honolulu_jenkins_cookbooks](https://github.com/stelligent/honolulu_jenkins_cookbooks).
+* [pipelinedemo.stelligent.com](http://pipelinedemo.stelligent.com/) - Working Continous Integration Server. To setup your own Jenkins server based on the same open source scripts, go to [Launching a Jenkins Environment](https://github.com/stelligent/honolulu_jenkins_cookbooks/wiki/Launching-a-Jenkins-Environment).
 * [appdemo.stelligent.com](http://appdemo.stelligent.com/) - Working Honolulu Answers application based on the automation described in this README. 
 
 ### Diagrams
