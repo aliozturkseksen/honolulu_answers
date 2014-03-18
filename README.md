@@ -20,9 +20,12 @@ Once your AWS CLI tools are set up, clone this repo and this command will build 
 (*NOTE: Alternatively, you can use Jenkins to run through the above steps. However, you'll need to install Jenkins first. To do this, see [Launching a Jenkins Environment](https://github.com/stelligent/honolulu_jenkins_cookbooks/wiki/Launching-a-Jenkins-Environment))*. After about 50 minutes, an Opsworks stack is created and launched. To get details:
 
 1. Log into the [OpsWorks](http://console.aws.amazon.com/opsworks) console
-3. You should see an OpsWorks stack listed named **Honolulu Answers** -- click on it. If you see more than one listed (because you kicked it off a few times), they are listed in alphabetical-then-chronological order. So the last *Honolulu Answers* stack listed will be the most recent one.
-4. Click on **Instances** within the OpsWorks stack you selected.
-5. Once the Instance turns green and shows its status as *Online*,you can click the IP address link and the Honolulu Answers application will load!
+1. You should see an OpsWorks stack listed named **Honolulu Answers** -- click on it. If you see more than one listed (because you kicked it off a few times), they are listed in alphabetical-then-chronological order. So the last *Honolulu Answers* stack listed will be the most recent one.
+1. Click on **Instances** within the OpsWorks stack you selected.
+1. Once the Instance turns green and shows its status as *Online*,you can click the IP address link and the Honolulu Answers application will load!
+
+#### Screencast
+[![Launch Honolulu App in AWS](https://s3.amazonaws.com/stelligent_website/casestudies/launch_honolulu_app.jpg)](http://youtu.be/80wVgZU2j_E)
 
 ### Deleting provisioned AWS resources
 * Go to the [CloudFormation](http://console.aws.amazon.com/cloudformation) console and delete the corresponding CloudFormation stack. 
