@@ -41,6 +41,7 @@ gem 'paperclip'                 # Easy file attachment library for ActiveRecord
 gem 'aws-sdk'                             # Upload files to Amazon S3
 gem 'aws-sdk-core'
 gem 'trollop'
+gem 'opendelivery'
 
 ## Gems used only for assets and not required
 ## in production environments by default.
