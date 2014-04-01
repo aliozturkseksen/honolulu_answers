@@ -1,10 +1,5 @@
 #!/bin/bash -e
 
-export SHA=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domain.new('us-west-2').get_property 'honolulu-jenkins-jonny-test','$pipeline_instance_id', 'SHA'"`
-echo checking out revision $SHA
-git checkout $SHA
-
-
 gem install trollop 
 gem install aws-sdk-core --pre
 export stack_name=HonoluluAnswers-`date +%Y%m%d%H%M%S`
