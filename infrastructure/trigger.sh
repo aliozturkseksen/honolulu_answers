@@ -8,7 +8,6 @@ echo pipeline_instance_id=$pipeline_instance_id
 GIT_SHA=`git log | head -1 | awk '{ print $2 }'`
 
 # save instance id to SDB
-gem install opendelivery
 ruby -e 'require "opendelivery"' -e "OpenDelivery::Domain.new('us-west-2').set_property 'honolulu-jenkins-jonny-test','$pipeline_instance_id', 'SHA', '$GIT_SHA'"
 
 # push instance id into file so we can load it into the environment
