@@ -42,6 +42,7 @@ gem 'aws-sdk'                             # Upload files to Amazon S3
 gem 'aws-sdk-core'
 gem 'trollop'
 gem 'opendelivery'
+gem 'encrypto_signo'
 
 ## Gems used only for assets and not required
 ## in production environments by default.
