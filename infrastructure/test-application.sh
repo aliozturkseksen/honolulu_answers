@@ -9,3 +9,5 @@ export stack_name=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domai
 
 cd infrastructure
 cucumber
+
+ruby -e 'require "opendelivery"' -e "OpenDelivery::Domain.new('$region').set_property 'honolulu-jenkins-jonny-test','$pipeline_instance_id', 'furthest_pipeline_stage_completed', 'acceptance'"
