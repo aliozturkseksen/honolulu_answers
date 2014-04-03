@@ -17,3 +17,5 @@ bundle exec rake spec
 # Run static analysis
 gem install brakeman --version 2.1.1
 brakeman -o brakeman-output.tabs
+
+ruby -e 'require "opendelivery"' -e "OpenDelivery::Domain.new('$region').set_property '$sdb_domain','$pipeline_instance_id', 'furthest_pipeline_stage_completed', 'build'"
