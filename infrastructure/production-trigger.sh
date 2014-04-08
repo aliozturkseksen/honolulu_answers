@@ -2,6 +2,7 @@
 
 
 # look up last successful pipeline instance
+gem install aws-sdk-core --pre
 
 export query="select * from \`honolulu-jenkins-jonny-test\` where furthest_pipeline_stage_completed = \'acceptance\' and started_at is not null order by started_at desc limit 1"
 
