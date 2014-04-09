@@ -1,5 +1,5 @@
 #!/bin/bash -e
-
+set -e
 
 # look up last successful pipeline instance
 gem install aws-sdk-core --pre
@@ -12,3 +12,5 @@ export SHA=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domain.new('
 
 # push instance id into file so we can load it into the environment
 echo pipeline_instance_id=$pipeline_instance_id > environment.txt
+echo "Passing these variables into the pipeline"
+cat environment.txt
