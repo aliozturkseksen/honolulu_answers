@@ -171,7 +171,7 @@
         "LayerIds": [ { "Ref": "layer" } ],
         "InstallUpdatesOnBoot": true,
         "Os" : "Ubuntu 12.04 LTS",
-        "InstanceType": "m3.medium",
+        "InstanceType": "c3.large",
         "RootDeviceType": "ebs",
         "Architecture": "x86_64"
       }
