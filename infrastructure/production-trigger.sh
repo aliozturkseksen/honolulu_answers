@@ -8,7 +8,7 @@ export query="select * from \`honolulu-jenkins-jonny-test\` where furthest_pipel
 
 export pipeline_instance_id=`ruby -e 'require "aws-sdk-core"' -e "puts Aws::SDB.new(region: '$region').select(select_expression: '$query').items.first.name"`
 
-if [[ -z "$pipeline_instance_id" ]]
+if [[ -z "$pipeline_instance_id" ]]; then
     echo "failed to retrieve info from configuration store."
     exit 1
 fi
