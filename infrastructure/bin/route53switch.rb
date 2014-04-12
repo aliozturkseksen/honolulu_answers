@@ -15,7 +15,6 @@ def get_zone_id r53, hosted_zone_name
 end
 
 def get_old_ip_address r53, subdomain, hosted_zone_name
-# Get the IP Address of the existing Production Instance from Route 53 itself.
    zone_id = get_zone_id r53, hosted_zone_name
    resource_record = r53.list_resource_record_sets(hosted_zone_id: zone_id).resource_record_sets.select {|record| record.name == "#{subdomain}.#{hosted_zone_name}."}
    if (resource_record.nil? || resource_record.empty?) then raise "No resource record exists for #{subdomain}.#{hosted_zone_name}." end
@@ -25,13 +24,11 @@ end
 
 def get_new_ip_address cfn, ops, stack_name
   instance_id = get_opsworks_instance_id cfn, stack_name
-  # Get the IP Address from the OpsWorks instance information
   new_ip_address = ops.describe_instances(instance_ids: [instance_id]).first.instances.first.public_ip
   return new_ip_address
 end
 
 def get_opsworks_instance_id cfn, stack_name
-  # get the OpsWorks Instance ID from the CloudFormation stack
   instance_id = nil
   cfn.describe_stack_resources(stack_name: stack_name).stack_resources.each do |resource|
     if resource.resource_type == "AWS::OpsWorks::Instance"
@@ -47,7 +44,9 @@ ops = Aws::OpsWorks.new(region: "us-east-1")
 # cfn needs to be in the same region as everything else, tho.
 cfn = Aws::CloudFormation.new(region: opts[:region])
 
+# From CloudFormation, get the OpsWorks instance info. From OpsWorks, get the instance public IP.
 new_ip_address = get_new_ip_address cfn, ops, opts[:stackname]
+# From Route 53, get the IP address of the existing production instance 
 old_ip_address = get_old_ip_address r53, opts[:subdomain], opts[:hostedzone]
 
 # Tell Route 53 to switch the new IP in for the old one
