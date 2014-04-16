@@ -1,3 +1,5 @@
+#!/bin/bash -e
+
 export stack_name="Honolulu-Jenkins-`date +%Y%m%d%H%M%S`"
 
 wget https://raw.githubusercontent.com/stelligent/honolulu_jenkins_cookbooks/master/jenkins.template
