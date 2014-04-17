@@ -33,7 +33,7 @@ def print_and_flush(str)
 end
 
 # create a cfn stack with all the resources the opsworks stack will need
-@cfn = Aws::CloudFormation.new region: "us-west-2"
+@cfn = Aws::CloudFormation.new region: opts[:region]
 
 cfn_stack_name = opts[:stack]
 
