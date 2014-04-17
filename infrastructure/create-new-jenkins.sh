@@ -6,7 +6,7 @@ wget https://raw.githubusercontent.com/stelligent/honolulu_jenkins_cookbooks/mas
 
 aws cloudformation create-stack --stack-name $stack_name --template-body "`cat jenkins.template`" --region ${region}  --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=domain,ParameterValue="${domain}"
 
-ruby infrastructure/bin/monitor_stack.rb  --stack $stack_name
+ruby infrastructure/bin/monitor_stack.rb  --stack $stack_name --region ${region}
 
 
 
