@@ -22,16 +22,16 @@ for (i = 0; i < jobs.size; ++ i) {
         downstreamParameterized {
           trigger ("${jobs[i+1]}-dsl", "ALWAYS"){
             currentBuild()
-            propertiesFile('environment.txt')
+            propertiesFile("environment.txt")
           }
         }
       }
     }
     wrappers {
-        rvm('1.9.3')
+        rvm("1.9.3")
     }
     publishers {
-      extendedEmail('jonny@stelligent.com', "\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS!", """\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS:
+      extendedEmail("jonny@stelligent.com", "\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS!", """\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS:
 
 Check console output at \$BUILD_URL to view the results.""") {
           trigger("Failure")
