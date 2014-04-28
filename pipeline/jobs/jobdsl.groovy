@@ -28,9 +28,9 @@ for (i = 0; i < jobs.size; ++ i) {
         rvm('1.9.3')
     }
     publishers {
-      extendedEmail('jonny@stelligent.com', "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!", """$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+      extendedEmail('jonny@stelligent.com', "\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS!", """\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS:
 
-Check console output at $BUILD_URL to view the results.""") {
+Check console output at \$BUILD_URL to view the results.""") {
           trigger("Failure")
           trigger("Fixed")
       }
