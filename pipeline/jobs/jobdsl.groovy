@@ -1,16 +1,19 @@
-def jobs = ['trigger', 'commit', "build-and-deploy", "test-application", "terminate-environment"]
+pipelines = []
+
+pipelines.add(["trigger", "commit", "build-and-deploy", "test-application", "terminate-environment"])
+pipelines.add(["production-trigger", "build-and-deploy-for-prod", "smoke-test", "bluegreen"])
 
 for (i = 0; i < jobs.size; ++ i) {
   job {
       name "${jobs[i]}-dsl"
       scm {
-          git('https://github.com/stelligent/honolulu_answers.git', 'master') { node ->
-              node / skipTag << 'true'
+          git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
+              node / skipTag << "true"
           }
       }
     if (jobs[i].equals("trigger-stage")) {
         triggers {
-          scm('* * * * *')
+          scm("* * * * *")
         }
     }
     steps {
