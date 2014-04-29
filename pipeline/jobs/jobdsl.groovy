@@ -45,22 +45,20 @@ for (i = 0; i < jobs.size; ++ i) {
   }
 
   // Create a view for each pipeline
-  view {
-    name = pipeline
-    configure { view ->
-      view.name = 'se.diabol.jenkins.pipeline.DeliveryPipelineView'
-      (view / 'name').setValue("${key} View")
-      (view / 'noOfPipelines').setValue(3)
-      (view / 'noOfColumns').setValue(1)
-      (view / 'sorting').setValue("none")
-      (view / 'showAvatars').setValue("false")
-      (view / 'updateInterval').setValue(2)
-      (view / 'showChanges').setValue("false")
-      (view / 'showAvatars ').setValue("false")
-      (view / 'showAvatars ').setValue("false")
-      (view / 'showAggregatedPipeline').setValue("false")
+view {
+  name = pipeline
+  configure { view ->
+    view.name = 'se.diabol.jenkins.pipeline.DeliveryPipelineView'
+    (view / 'name').setValue("${key} View")
+    (view / 'noOfPipelines').setValue(3)
+    (view / 'noOfColumns').setValue(1)
+    (view / 'sorting').setValue("none")
+    (view / 'showAvatars').setValue("false")
+    (view / 'updateInterval').setValue(2)
+    (view / 'showChanges').setValue("false")
+    (view / 'showAggregatedPipeline').setValue("false")
     (view / 'componentSpecs' / 'se.diabol.jenkins.pipeline.DeliveryPipelineView_-ComponentSpec' / 'name').setValue(pipeline)
     (view / 'componentSpecs' / 'se.diabol.jenkins.pipeline.DeliveryPipelineView_-ComponentSpec' / 'firstJob').setValue("${jobs[0]}-dsl")
+    }
   }
- }
 }
