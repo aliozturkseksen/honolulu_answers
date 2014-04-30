@@ -1,3 +1,5 @@
+require 'aws-sdk-core'
+
 Given(/^I am testing the local environment$/) do
   pending # express the regexp above with the code you wish you had
 end
