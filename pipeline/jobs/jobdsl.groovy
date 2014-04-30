@@ -1,3 +1,11 @@
+static Closure pipelineConfig(String task, String stage) {
+    return { project ->
+        def pipelineConfig = project / 'properties' / 'se.diabol.jenkins.pipeline.PipelineProperty' 
+        pipelineConfig << { stageName stage }
+        pipelineConfig << { taskName task }      
+    }
+}
+
 // pipelines is a map of maps of arrays
 // pipelines is a map of pipeline names mapped to maps of stage names mapped to jobs
 
@@ -20,19 +28,14 @@ def create_view(pipeline, triggerjob) {
   }
 }
 
-def create_job(job, nextJob, stage) {
-  job {
-    name job
-  }
-}
-
 def pipelines =  [
   "Continuous Delivery Pipeline":[
     "commit":["trigger", "commit"], 
     "acceptance": ["build-and-deploy", "test-application", "terminate-environment"]
     ],
   "Production Delivery Pipeline":[
-    "production" : ["production-trigger", "build-and-deploy-for-prod", "smoke-test", "bluegreen"]
+    "preprod" : ["production-trigger", "build-and-deploy-for-prod", "smoke-test"], 
+    "production" : ["bluegreen"]
     ]
   ]
 
@@ -41,35 +44,37 @@ pipelines.each { pipeline, stages ->
   create_view(pipeline, stages[stageList[0]].first())
 
   // the data structure we define the pipelines in is useful for humans to read, but a pain to look-forward through. Translate to something easier to code around.
-    joblist = []
+    def joblist = []
     stages.each { stage, jobs ->
       jobs.each { job ->
         joblist.add([job, stage])
       }
     }
+    
+    [*joblist, null].collate(2, 1, false).each { currentJob, nextJob ->
+    jobName = currentJob[0]
+    nextJobName = nextJob == null ? null : nextJob[0]
+    stage = currentJob[1]
 
-  for (int i = 0; i < joblist.size(); ++ i) {
-    job = joblist[i][0]
-    nextJob = (i + 1 < joblist.size()) ? joblist[i +1][0] : null
-    stage = joblist[i][1]
-
-    job {
-        name "${job}-dsl"
-        scm {
-            git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
-                node / skipTag << "true"
-            }
+    job {  
+      println "configuring ${jobName}'s pipeline config: ${jobName} / ${stage}"
+      configure pipelineConfig(jobName, stage)
+      name "${jobName}-dsl"
+      scm {
+        git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
+          node / skipTag << "true"
         }
-      if (job.equals("trigger")) {
-          triggers {
-            scm("* * * * *")
-          }
+      }
+      if (jobName.equals("trigger")) {
+        triggers {
+          scm("* * * * *")
+        }
       }
       steps {
-        shell("pipeline/${job}.sh")
-        if (nextJob != null) {
+        shell("pipeline/${jobName}.sh")
+        if (nextJobName != null) {
           downstreamParameterized {
-            trigger ("${nextJob}-dsl", "ALWAYS"){
+            trigger ("${nextJobName}-dsl", "ALWAYS"){
               currentBuild()
               propertiesFile("environment.txt")
             }
@@ -77,17 +82,16 @@ pipelines.each { pipeline, stages ->
         }
       }
       wrappers {
-          rvm("1.9.3")
+        rvm("1.9.3")
       }
       publishers {
         extendedEmail("jonny@stelligent.com", "\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS!", """\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS:
 
-  Check console output at \$BUILD_URL to view the results.""") {
-            trigger("Failure")
-            trigger("Fixed")
+        Check console output at \$BUILD_URL to view the results.""") {
+          trigger("Failure")
+          trigger("Fixed")
         }
       }
     }
-
   }
 }
