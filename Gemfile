@@ -43,6 +43,7 @@ gem 'aws-sdk-core'
 gem 'trollop'
 gem 'opendelivery'
 gem 'encrypto_signo'
+gem 'cucumber'
 
 ## Gems used only for assets and not required
 ## in production environments by default.
