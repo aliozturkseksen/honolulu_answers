@@ -33,5 +33,5 @@ end
 
 Then(/^I should see that each job has Delivery Pipeline configuration$/) do
   nodes = @xml_doc.xpath("//buildWrappers/ruby-proxy-object/ruby-object/object/impl[@pluginid='rvm']")
-  nodes.size.should == 2
+  nodes.size.should == 1
 end
