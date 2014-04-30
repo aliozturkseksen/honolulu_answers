@@ -1,7 +1,7 @@
 require 'aws-sdk-core'
 
 When(/^I inspect the config for "(.*?)"$/) do |job|
-  output_lines = run_cmd.run "cat /var/lib/jenkins/jobs/#{job}.xml"
+  output_lines = run_cmd.run "cat /var/lib/jenkins/jobs/#{job}/config.xml"
 
   @xml_doc = Nokogiri::XML(output_lines)
 
