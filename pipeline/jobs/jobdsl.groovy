@@ -60,7 +60,10 @@ pipelines.each { pipeline, stages ->
       println "configuring ${jobName}'s pipeline config: ${jobName} / ${stage}"
       configure pipelineConfig(jobName, stage)
       name "${jobName}-dsl"
-      scm {
+      multiscm {
+        git("https://github.com/stelligent/honolulu_answers_cookbooks.git", "master") { node ->
+          node / skipTag << "true"
+        }
         git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
           node / skipTag << "true"
         }
