@@ -1,5 +1,5 @@
 #!/bin/bash -e
-gem install cucumber net-ssh opendelivery
+gem install cucumber net-ssh opendelivery --no-ri --no-rdoc
 
 export SHA=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domain.new('$region').get_property '$sdb_domain','$pipeline_instance_id', 'SHA'"`
 echo checking out revision $SHA
