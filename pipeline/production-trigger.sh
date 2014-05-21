@@ -2,7 +2,7 @@
 set -e
 
 # look up last successful pipeline instance
-gem install aws-sdk-core --pre
+gem install aws-sdk-core --pre  --no-ri --no-rdoc
 
 export query="select * from \`$sdb_domain\` where production_candidate = \'true\' and started_at is not null order by started_at desc limit 1"
 

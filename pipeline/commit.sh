@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-gem install opendelivery bundler
+gem install opendelivery bundler  --no-ri --no-rdoc
 
 export SHA=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domain.new('$region').get_property '$sdb_domain','$pipeline_instance_id', 'SHA'"`
 echo checking out revision $SHA
@@ -15,7 +15,7 @@ bundle exec rake db:setup
 bundle exec rake spec
 
 # Run static analysis
-gem install brakeman --version 2.1.1 --no-ri --no-rdoc
+gem install brakeman --version 2.1.1 --no-ri --no-rdoc 
 brakeman -o brakeman-output.tabs
 
 ruby -e 'require "opendelivery"' -e "OpenDelivery::Domain.new('$region').set_property '$sdb_domain','$pipeline_instance_id', 'furthest_pipeline_stage_completed', 'build'"
