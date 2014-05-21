@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-gem install trollop
-gem install aws-sdk-core --pre
+gem install trollop --no-ri --no-rdoc
+gem install aws-sdk-core --pre --no-ri --no-rdoc
 
 echo "making $stack_name the new production Jenkins..."
 
