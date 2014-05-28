@@ -3,6 +3,7 @@
 echo checking out revision $SHA
 git checkout $SHA
 
+timestamp=`date +%Y%m%d%H%M%S`
 
 gem install trollop opendelivery --no-ri --no-rdoc
 gem install aws-sdk-core --pre --no-ri --no-rdoc
