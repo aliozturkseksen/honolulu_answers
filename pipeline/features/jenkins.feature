@@ -38,5 +38,5 @@ Feature: Scripted install of Jenkins
     Scenario: Is the self service delete job set up correctly?
         When I run "ls /var/lib/jenkins/jobs"
         Then I should see "self-service-environment-delete-dsl"
-        When I inspect the config for "self-service-environment-create-dsl"
+        When I inspect the config for "self-service-environment-delete-dsl"
         Then I should see that it takes the parameter "stack_name"
