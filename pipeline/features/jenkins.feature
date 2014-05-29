@@ -40,4 +40,4 @@ Feature: Scripted install of Jenkins
         When I run "ls /var/lib/jenkins/jobs"
         Then I should see "self-service-environment-create-dsl"
         When I inspect the config for "self-service-environment-create-dsl"
-        Then I should that it takes the parameter "stack_name"
+        Then I should see that it takes the parameter "stack_name"

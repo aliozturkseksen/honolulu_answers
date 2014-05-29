@@ -41,7 +41,11 @@ Then(/^I should see that it takes the parameter "(.*?)"$/) do |arg1|
   nodes.size.should == 1
 end
 
-Then(/^I should see that the email trigger is success$/) do |arg1|
+
+Then(/^I should see success emails turned on for that job$/) do
+  nodes = @xml_doc.xpath("//publishers/hudson.plugins.emailext.ExtendedEmailPublisher")
+  nodes.size.should == 1
   nodes = @xml_doc.xpath("//publishers/hudson.plugins.emailext.ExtendedEmailPublisher/configuredTriggers/hudson.plugins.emailext.plugins.trigger.SuccessTrigger")
   nodes.size.should == 1
 end
+
