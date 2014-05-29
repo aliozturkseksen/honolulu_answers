@@ -31,10 +31,10 @@ Feature: Scripted install of Jenkins
         When I run "ls /var/lib/jenkins/jobs"
         Then I should see "self-service-environment-create-dsl"
         When I inspect the config for "self-service-environment-create-dsl"
-        Then I should that it takes the parameter "email"
-        And I should see that it takes the parameter "SHA"
-        And I should see it has emails turned on for that job
-        And I should see that the email trigger is "success"
+        Then I should see that it takes the parameter "email"
+         And I should see that it takes the parameter "SHA"
+         And I should see emails turned on for that job
+         And I should see success emails turned on for that job
 
     Scenario: Is the self service delete job set up correctly?
         When I run "ls /var/lib/jenkins/jobs"

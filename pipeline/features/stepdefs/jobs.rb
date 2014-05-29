@@ -35,3 +35,13 @@ Then(/^I should see that each job has Delivery Pipeline configuration$/) do
   nodes = @xml_doc.xpath("//buildWrappers/ruby-proxy-object/ruby-object/object/impl[@pluginid='rvm']")
   nodes.size.should == 1
 end
+
+Then(/^I should see that it takes the parameter "(.*?)"$/) do |arg1|
+  nodes = @xml_doc.xpath("//properties/hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[name=#{arg1}]")
+  nodes.size.should == 1
+end
+
+Then(/^I should see that the email trigger is success$/) do |arg1|
+  nodes = @xml_doc.xpath("//publishers/hudson.plugins.emailext.ExtendedEmailPublisher/configuredTriggers/hudson.plugins.emailext.plugins.trigger.SuccessTrigger")
+  nodes.size.should == 1
+end
