@@ -5,7 +5,7 @@ When(/^I inspect the config for "(.*?)"$/) do |job|
   output_lines = run_cmd.run "cat /var/lib/jenkins/jobs/#{job}/config.xml"
 
   @xml_doc = Nokogiri::XML(output_lines)
-
+  puts @xml_doc
 end
 
 Then(/^I should see multiscm configured for that job$/) do
