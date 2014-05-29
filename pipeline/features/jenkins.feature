@@ -26,3 +26,18 @@ Feature: Scripted install of Jenkins
             | "build-and-deploy-for-prod-dsl" |
             | "smoke-test-dsl"                |
             | "bluegreen-dsl"                 |
+
+    Scenario: Is the self service creation job set up correctly?
+        When I run "ls /var/lib/jenkins/jobs"
+        Then I should see "self-service-environment-create-dsl"
+        When I inspect the config for "self-service-environment-create-dsl"
+        Then I should that it takes the parameter "email"
+        And I should see that it takes the parameter "SHA"
+        And I should see it has emails turned on for that job
+        And I should see that the email trigger is "success"
+
+    Scenario: Is the self service delete job set up correctly?
+        When I run "ls /var/lib/jenkins/jobs"
+        Then I should see "self-service-environment-create-dsl"
+        When I inspect the config for "self-service-environment-create-dsl"
+        Then I should that it takes the parameter "stack_name"
