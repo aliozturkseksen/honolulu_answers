@@ -5,7 +5,6 @@ When(/^I inspect the config for "(.*?)"$/) do |job|
   output_lines = run_cmd.run "cat /var/lib/jenkins/jobs/#{job}/config.xml"
 
   @xml_doc = Nokogiri::XML(output_lines)
-  puts @xml_doc
 end
 
 Then(/^I should see multiscm configured for that job$/) do
@@ -37,7 +36,6 @@ Then(/^I should see that each job has Delivery Pipeline configuration$/) do
 end
 
 Then(/^I should see that it takes the parameter "(.*?)"$/) do |arg1|
-  puts "/project/properties/hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[name='#{arg1}']"
   nodes = @xml_doc.xpath("/project/properties/hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[name='#{arg1}']")
   nodes.size.should == 1
 end
