@@ -131,7 +131,10 @@ job {
 
 job {  
   name "self-service-environment-delete-dsl"
-  multiscm {
+   parameters {
+    stringParam("stack_name", "", "The CloudFormation stack name to clean up")
+   }
+   multiscm {
     git("https://github.com/stelligent/honolulu_answers_cookbooks.git", "master") { node ->
       node / skipTag << "true"
     }
