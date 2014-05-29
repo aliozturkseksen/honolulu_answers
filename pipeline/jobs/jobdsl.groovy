@@ -98,3 +98,58 @@ pipelines.each { pipeline, stages ->
     }
   }
 }
+
+// self service jobs
+job {  
+  name "self-service-environment-create-dsl"
+  parameters {
+    stringParam("email", "", "The email address of the owner of the environment.")
+    stringParam("SHA", "HEAD", "The Git SHA of the revision you want to deploy. The default is HEAD, which will just get the latest code from the repo.")
+  }
+  multiscm {
+    git("https://github.com/stelligent/honolulu_answers_cookbooks.git", "master") { node ->
+      node / skipTag << "true"
+    }
+    git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
+      node / skipTag << "true"
+    }
+  }
+  steps {
+    shell("pipeline/self-service-build-and-deploy.sh")
+  }
+  wrappers {
+    rvm("1.9.3")
+  }
+  publishers {
+    extendedEmail("\$email", "Your self service environment is ready.", """\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS:
+
+    Check console output at \$BUILD_URL to view the results.""") {
+      trigger("Success")
+    }
+  }
+}
+
+job {  
+  name "self-service-environment-delete-dsl"
+  multiscm {
+    git("https://github.com/stelligent/honolulu_answers_cookbooks.git", "master") { node ->
+      node / skipTag << "true"
+    }
+    git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
+      node / skipTag << "true"
+    }
+  }
+  steps {
+    shell("pipeline/self-service-delete.sh")
+  }
+  wrappers {
+    rvm("1.9.3")
+  }
+  publishers {
+    extendedEmail("\$email", "Your self service environment is ready.", """\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS:
+
+    Check console output at \$BUILD_URL to view the results.""") {
+      trigger("Success")
+    }
+  }
+}
