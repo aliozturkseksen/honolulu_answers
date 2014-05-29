@@ -148,11 +148,4 @@ job {
   wrappers {
     rvm("1.9.3")
   }
-  publishers {
-    extendedEmail("\$email", "Your self service environment is ready.", """\$PROJECT_NAME - Build # \$BUILD_NUMBER - \$BUILD_STATUS:
-
-    Check console output at \$BUILD_URL to view the results.""") {
-      trigger("Success")
-    }
-  }
 }
