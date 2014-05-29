@@ -37,7 +37,7 @@ Then(/^I should see that each job has Delivery Pipeline configuration$/) do
 end
 
 Then(/^I should see that it takes the parameter "(.*?)"$/) do |arg1|
-  nodes = @xml_doc.xpath("//properties/hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[name=#{arg1}]")
+  nodes = @xml_doc.xpath("//properties/hudson.model.ParametersDefinitionProperty/parameterDefinitions/hudson.model.StringParameterDefinition[name='#{arg1}']")
   nodes.size.should == 1
 end
 
