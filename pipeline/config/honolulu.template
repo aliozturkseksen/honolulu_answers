@@ -40,7 +40,24 @@
       "Default" : "hnlgovanswers-dev",
       "Description" : "Searchify Index",
       "Type" : "String"
+    },
+    "privateSubnetA": {
+        "Type": "String",
+        "Description": "The private subnet in the VPC that the OpsWorks instances will launch into"
+    },
+    "privateSubnetB": {
+        "Type": "String",
+        "Description": "The private subnet in the VPC that the OpsWorks instances will launch into"
+    },
+    "publicSubnet": {
+        "Type": "String",
+        "Description": "The public subnet in the VPC that the elastic load balancers will launch into"
+    },
+    "vpc": {
+        "Type": "String",
+        "Description": "The VPC to launch into"
     }
+
   },
   "Resources": {
     "User" : {
@@ -63,24 +80,43 @@
         "UserName" : { "Ref": "User" }
       }
     },
+
+    "DBSubnetGroup" : {
+      "Type" : "AWS::RDS::DBSubnetGroup",
+      "Properties" : {
+        "DBSubnetGroupDescription" : "Subnets available for the RDS DB Instance",
+        "SubnetIds" : {"Fn::Join": ["", [{ "Ref" : "privateSubnetA" }, ",", { "Ref" : "privateSubnetB" }] ] }
+      }
+    },    
     "DBInstance": {
       "Type": "AWS::RDS::DBInstance",
       "Properties": {
         "DBName": { "Ref": "DBName" },
+        "DBSubnetGroupName": { "Ref" : "DBSubnetGroup"},
         "Engine": "postgres",
         "MasterUsername": { "Ref" : "DBUser"},
         "DBInstanceClass": "db.t1.micro",
-        "DBSecurityGroups": [ { "Ref": "DBSecurityGroup" } ],
+        "VPCSecurityGroups": [ { "Ref": "DBSecurityGroup" } ],
         "AllocatedStorage": "5",
         "MasterUserPassword": { "Ref": "DBPassword" }
       }
     },
     "DBSecurityGroup": {
-      "Type": "AWS::RDS::DBSecurityGroup",
-      "Properties": {
-        "DBSecurityGroupIngress": [ { "EC2SecurityGroupName": { "Ref": "HonoluluAnswersSecurityGroup" } }, { "CIDRIP" : "0.0.0.0/0" } ],
-        "GroupDescription": "Frontend Access"
-      }
+        "Type": "AWS::EC2::SecurityGroup",
+        "Properties": {
+            "GroupDescription": "Security group for the Honolulu Answers RDS instance",
+            "SecurityGroupIngress": [
+                {
+                    "FromPort" : "1",
+                    "ToPort" : "65535", 
+                    "CidrIp": "0.0.0.0/0",
+                    "IpProtocol": "tcp"
+                }
+            ],
+            "VpcId": {
+                "Ref": "vpc"
+            }
+        }
     },
     "HonoluluAnswersSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
