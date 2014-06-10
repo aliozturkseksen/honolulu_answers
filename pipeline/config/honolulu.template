@@ -132,7 +132,9 @@
         "VpcId": {
             "Ref": "vpc"
         },
-
+        "DefaultSubnetId": {
+            "Ref": "privateSubnetA"
+        },
         "ServiceRoleArn": { "Fn::GetAtt": [ "OpsWorksServiceRole", "Arn" ] },
         "DefaultInstanceProfileArn": { "Fn::GetAtt": [ "OpsWorksInstanceProfile", "Arn" ] },
         "CustomCookbooksSource": {
