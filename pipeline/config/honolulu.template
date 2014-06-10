@@ -1,4 +1,3 @@
-
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Launches OpsWorks stack, layer, instances and associated resources to run a Honolulu Answers application.",
@@ -130,6 +129,10 @@
       "Type": "AWS::OpsWorks::Stack",
       "Properties": {
         "Name": { "Ref": "AWS::StackName" },
+        "VpcId": {
+            "Ref": "vpc"
+        },
+
         "ServiceRoleArn": { "Fn::GetAtt": [ "OpsWorksServiceRole", "Arn" ] },
         "DefaultInstanceProfileArn": { "Fn::GetAtt": [ "OpsWorksInstanceProfile", "Arn" ] },
         "CustomCookbooksSource": {
