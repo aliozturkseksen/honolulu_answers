@@ -85,7 +85,7 @@
       "Type" : "AWS::RDS::DBSubnetGroup",
       "Properties" : {
         "DBSubnetGroupDescription" : "Subnets available for the RDS DB Instance",
-        "SubnetIds" : {"Fn::Join": ["", [{ "Ref" : "privateSubnetA" }, ",", { "Ref" : "privateSubnetB" }] ] }
+        "SubnetIds" : [{ "Ref" : "privateSubnetA" },  { "Ref" : "privateSubnetB" }] 
       }
     },    
     "DBInstance": {
@@ -94,6 +94,7 @@
         "DBName": { "Ref": "DBName" },
         "DBSubnetGroupName": { "Ref" : "DBSubnetGroup"},
         "Engine": "postgres",
+        "MultiAZ" : true,
         "MasterUsername": { "Ref" : "DBUser"},
         "DBInstanceClass": "db.t1.micro",
         "VPCSecurityGroups": [ { "Ref": "DBSecurityGroup" } ],
