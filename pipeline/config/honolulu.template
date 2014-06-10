@@ -198,7 +198,7 @@
           "postgresql"
         ],
         "CustomRecipes": {
-          "Setup": [ "environment::set_env_variables" ],
+          "Setup": [ "environment::set_env_variables", "honolulu::workaround" ],
           "Deploy": [ "honolulu::migrate", "honolulu::seed", "honolulu::searchify" ]
         }
       }
