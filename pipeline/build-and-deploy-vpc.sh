@@ -5,12 +5,6 @@ export timestamp=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domain
 echo checking out revision $SHA
 git checkout $SHA
 
-# hardcoding this for now until I figure out how to get it into Jenkins
-VPC=vpc-35947a50
-PublicSubnet=subnet-7300e204
-PrivateSubnetA=subnet-7200e205
-PrivateSubnetB=subnet-4fae682a
-
 gem install trollop opendelivery --no-ri --no-rdoc
 gem install aws-sdk-core --pre --no-ri --no-rdoc
 export stack_name=HonoluluAnswers-$timestamp
