@@ -122,7 +122,8 @@
     "HonoluluAnswersSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "Security group that the Honolulu Rails server and RDS server will both be in"
+        "GroupDescription": "Security group that the Honolulu Rails server and RDS server will both be in",
+        "VpcId" : { "Ref" : "vpc"}
       }
     },
     "stack": {
