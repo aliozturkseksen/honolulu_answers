@@ -287,7 +287,74 @@
         "Path": "/",
         "Roles": [ { "Ref": "OpsWorksInstanceRole" } ]
       }
+    },
+    "ElasticLoadBalancer": {
+        "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+        "Properties": {
+            "SecurityGroups": [
+                {
+                    "Ref": "ELBSecurityGroup"
+                }
+            ],
+            "Subnets": [
+                {
+                    "Ref": "publicSubnet"
+                }
+            ],
+            "Listeners": [
+                {
+                    "LoadBalancerPort": "80",
+                    "InstancePort": "80",
+                    "Protocol": "TCP"
+                }
+            ],
+            "HealthCheck": {
+                "Target": "TCP:80",
+                "HealthyThreshold": "3",
+                "UnhealthyThreshold": "5",
+                "Interval": "90",
+                "Timeout": "60"
+            }
+        }
+    
+    },
+    "ELBSecurityGroup": {
+        "Type": "AWS::EC2::SecurityGroup",
+        "Properties": {
+            "GroupDescription": "Allow inbound access to the ELB",
+            "VpcId": {
+                "Ref": "vpc"
+            },
+            "SecurityGroupIngress": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": "80",
+                    "ToPort": "80",
+                    "CidrIp": "0.0.0.0/0"
+                }
+            ],
+            "SecurityGroupEgress": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": "80",
+                    "ToPort": "80",
+                    "CidrIp": "0.0.0.0/0"
+                }
+            ]
+        }
+    },
+    "LoadBalancerAttachment": {
+        "Type": "AWS::OpsWorks::ElasticLoadBalancerAttachment",
+        "Properties": {
+            "ElasticLoadBalancerName": {
+                "Ref": "ElasticLoadBalancer"
+            },
+            "LayerId": {
+                "Ref": "layer"
+            }
+        }
     }
+
   },
   "Outputs": {
     "StackId": { "Value": { "Ref": "stack" } },
