@@ -16,7 +16,7 @@ aws cloudformation create-stack --stack-name $stack_name --template-body "`cat p
   ParameterKey=vpc,ParameterValue=$vpc \
   ParameterKey=publicSubnet,ParameterValue=$publicSubnet \
   ParameterKey=privateSubnetA,ParameterValue=$privateSubnetA \
-  ParameterKey=privateSubnetB,ParameterValue=$privateSubnetB \
+  ParameterKey=privateSubnetB,ParameterValue=$privateSubnetB
 
 # make sure we give AWS a chance to actually create the stack...
 sleep 30
