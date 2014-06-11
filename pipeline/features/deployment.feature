@@ -1,3 +1,4 @@
+@deployment
 Feature: Scripted Deployment of an Application
     As a Continouous Delivery Engineer
     I would like verify my infrastructure and deployment are correct
