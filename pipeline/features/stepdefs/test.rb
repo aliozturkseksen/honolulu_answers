@@ -9,12 +9,11 @@ Given(/^I have the CloudFormation stack information to query$/) do
 
   # poll cfn for instance ID
   cfn = Aws::CloudFormation.new region: region
-  instance_ids = cfn.describe_stack_resources(stack_name: @stackname).stack_resources.collect {|rsc| if rsc.resource_type == "AWS::OpsWorks::Instance" then rsc.physical_resource_id end }.compact
+  elb = Aws::ElasticLoadBalancing.new region: region
 
-  # using the instance ID, get the IP address
-  ops = Aws::OpsWorks.new region: "us-east-1"
-  @ip_address = ops.describe_instances( instance_ids: instance_ids).instances.first["public_ip"]
-  expect(@ip_address).to be, "No IP address associated with stack."
+  @address = elb.describe_load_balancers(load_balancer_names: cfn.describe_stack_resources(stack_name: @stackname).stack_resources.collect {|rsc| if rsc.resource_type == "AWS::ElasticLoadBalancing::LoadBalancer" then rsc.physical_resource_id end }.compact).load_balancer_descriptions.first.dns_name
+  
+  expect(@address).to be, "No ELB address associated with stack."
 end
 
 
@@ -22,7 +21,7 @@ When(/^I pull up the Honolulu Answers application$/) do
   @error = nil
   begin
     # the trailing / is important!!
-    url = "http://#{@ip_address}/"
+    url = "http://#{@address}/"
     @response = Net::HTTP.get_response(URI.parse(url).host, URI.parse(url).path)
   rescue Exception => e
     @error = e
