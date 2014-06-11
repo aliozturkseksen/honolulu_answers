@@ -31,10 +31,10 @@ def create_view(pipeline, triggerjob) {
 def pipelines =  [
   "Continuous Delivery Pipeline":[
     "commit":["trigger", "commit"], 
-    "acceptance": ["build-and-deploy", "test-application", "terminate-environment"]
+    "acceptance": ["build-and-deploy-vpc", "test-application", "terminate-environment"]
     ],
   "Production Delivery Pipeline":[
-    "preprod" : ["production-trigger", "build-and-deploy-for-prod", "smoke-test"], 
+    "preprod" : ["production-trigger", "build-and-deploy-for-prod-vpc", "smoke-test"], 
     "production" : ["bluegreen"]
     ]
   ]
