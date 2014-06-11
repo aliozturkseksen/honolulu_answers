@@ -14,19 +14,19 @@ def get_zone_id r53, hosted_zone_name
   return zone_id
 end
 
-def get_new_elb_address cfn, ops, stack_name
+def get_new_elb_address cfn, elb, stack_name
   elb_address = elb.describe_load_balancers(load_balancer_names: cfn.describe_stack_resources(stack_name: stack_name).stack_resources.collect {|rsc| if rsc.resource_type == "AWS::ElasticLoadBalancing::LoadBalancer" then rsc.physical_resource_id end }.compact).load_balancer_descriptions.first.dns_name
   return elb_address
 end
 
 #route 53 and opsworks only run in us-east-1
 r53 = Aws::Route53.new(region: "us-east-1")
-ops = Aws::OpsWorks.new(region: "us-east-1")
 # cfn needs to be in the same region as everything else, tho.
+elb = Aws::ElasticLoadBalancing.new(region: opts[:region])
 cfn = Aws::CloudFormation.new(region: opts[:region])
 
 # From CloudFormation, get the OpsWorks instance info. From OpsWorks, get the instance public IP.
-new_elb_address = get_new_elb_address cfn, ops, opts[:stackname]
+new_elb_address = get_new_elb_address cfn, elb, opts[:stackname]
 
 # Tell Route 53 to switch the new IP in for the old one
 full_address = "#{opts[:subdomain]}.#{opts[:hostedzone]}"
