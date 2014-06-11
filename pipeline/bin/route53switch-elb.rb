@@ -38,7 +38,7 @@ r53.change_resource_record_sets hosted_zone_id: zone_id, change_batch:
       action: "UPSERT", 
       resource_record_set: {
         name: full_address, 
-        type: "A",
+        type: "CNAME",
         ttl: 300,
         resource_records: [ { value: new_elb_address} ] }
     }
