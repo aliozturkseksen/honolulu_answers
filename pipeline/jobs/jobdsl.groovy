@@ -115,7 +115,7 @@ job {
     }
   }
   steps {
-    shell("pipeline/self-service-build-and-deploy.sh")
+    shell("pipeline/self-service-build-and-deploy-vpc.sh")
   }
   wrappers {
     rvm("1.9.3")
