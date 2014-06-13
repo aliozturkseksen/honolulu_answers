@@ -15,6 +15,6 @@ aws cloudformation create-stack --stack-name $stack_name --template-body "`cat j
 --output text
 
 
-ruby infrastructure/bin/monitor_stack.rb  --stack $stack_name --region ${region}
+ruby pipeline/bin/monitor_stack.rb  --stack $stack_name --region ${region}
 
 echo "$stack_name created."
