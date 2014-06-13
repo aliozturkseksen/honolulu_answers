@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ev
 
 export stack_name="Honolulu-Jenkins-`date +%Y%m%d%H%M%S`"
 
