@@ -2,9 +2,6 @@
 
 export stack_name="Honolulu-Jenkins-`date +%Y%m%d%H%M%S`"
 
-gem install trollop
-gem install aws-sdk-core --pre
-
 wget https://raw.githubusercontent.com/stelligent/honolulu_jenkins_cookbooks/master/jenkins.template
 
 # Create Honolulu Jenkins stack in VPC
