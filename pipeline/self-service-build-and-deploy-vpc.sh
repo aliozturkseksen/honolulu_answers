@@ -8,7 +8,7 @@ timestamp=`date +%Y%m%d%H%M%S`
 gem install trollop opendelivery --no-ri --no-rdoc
 gem install aws-sdk-core --pre --no-ri --no-rdoc
 export stack_name=HonoluluAnswers-$timestamp
-aws cloudformation create-stack --stack-name $stack_name --template-body "`cat pipeline/config/honolulu.template`" --region ${region}  --disable-rollback --capabilities="CAPABILITY_IAM"  --tags Key=owner,Value=$email Key=revision,Value=$SHA
+aws cloudformation create-stack --stack-name $stack_name --template-body "`cat pipeline/config/honolulu.template`" --region ${region}  --disable-rollback --capabilities="CAPABILITY_IAM"  --tags Key=owner,Value=$email Key=revision,Value=$SHA \
 --parameters \
   ParameterKey=vpc,ParameterValue=$vpc \
   ParameterKey=publicSubnet,ParameterValue=$publicSubnet \
