@@ -1,6 +1,6 @@
 ## Honolulu Answers AWS Scripting Proof of Concept
 
-We used this repo to demonstrate how to script the Honolulu Answers app to deploy in [Amazon Web Services](https://aws.amazon.com/) (AWS). This fork is not intended to be merged back into the original, and we don't plan on keeping it updated with any changes to made to the original. You will incur AWS charges while resources are in use. Use this application at your own risk! 
+We used this repo to demonstrate how to script the Honolulu Answers app to deploy in [Amazon Web Services](https://aws.amazon.com/) (AWS). This fork is not intended to be merged back into the original, and we don't plan on keeping it updated with any changes to made to the original. You will incur AWS charges while resources are in use. Use this application at your own risk!
 
 ## Setting up the Honolulu Answers application
 #### Prereqs:
@@ -15,7 +15,7 @@ Once your AWS CLI tools are set up, clone this repo and this command will build 
     sudo yum -y install git
     git clone https://github.com/stelligent/honolulu_answers.git
     cd honolulu_answers/
-    aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat infrastructure/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM"
+    aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM"
 
 (*NOTE: Alternatively, you can use Jenkins to run through the above steps. However, you'll need to install Jenkins first. To do this, see [Launching a Jenkins Environment](https://github.com/stelligent/honolulu_jenkins_cookbooks/wiki/Launching-a-Jenkins-Environment))*. After about 50 minutes, an Opsworks stack is created and launched. To get details:
 
@@ -28,7 +28,7 @@ Once your AWS CLI tools are set up, clone this repo and this command will build 
 [![Launch Honolulu App in AWS](https://s3.amazonaws.com/stelligent_website/casestudies/launch_honolulu_app.jpg)](http://youtu.be/80wVgZU2j_E)
 
 ### Deleting provisioned AWS resources
-* Go to the [CloudFormation](http://console.aws.amazon.com/cloudformation) console and delete the corresponding CloudFormation stack. 
+* Go to the [CloudFormation](http://console.aws.amazon.com/cloudformation) console and delete the corresponding CloudFormation stack.
 
 ### Changes made to this Github Fork
 
@@ -38,13 +38,11 @@ We made several changes to this repository, you can view them here: [Stelligent 
 
 We're using a bunch of great tools for automating and running this application. You can view the list here: [Tools Used](https://github.com/stelligent/honolulu_answers/wiki/Tools-Used)
 
-## Resources 
+## Resources
 ### Working Systems
 
 * [pipelinedemo.stelligent.com](http://pipelinedemo.stelligent.com/) - Working Continous Integration Server. To setup your own Jenkins server based on the same open source scripts, go to [Launching a Jenkins Environment](https://github.com/stelligent/honolulu_jenkins_cookbooks/wiki/Launching-a-Jenkins-Environment).
-* [appdemo.stelligent.com](http://appdemo.stelligent.com/) - Working Honolulu Answers application based on the automation described in this README. 
+* [appdemo.stelligent.com](http://appdemo.stelligent.com/) - Working Honolulu Answers application based on the automation described in this README.
 
 ### Diagrams
 We've put together several diagrams to help show how everything ties together. You can view them here: [Architecture and Design](https://github.com/stelligent/honolulu_answers/wiki/Architecture-and-Design)
-
-
