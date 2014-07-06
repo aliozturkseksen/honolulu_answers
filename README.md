@@ -1,4 +1,4 @@
-## Honolulu Answers AWS Scripting Proof of Concept
+## Honolulu Answers Rails/AWS Reference Implementation
 
 We used this repo to demonstrate how to script the Honolulu Answers app to deploy in [Amazon Web Services](https://aws.amazon.com/) (AWS). This fork is not intended to be merged back into the original, and we don't plan on keeping it updated with any changes to made to the original. You will incur AWS charges while resources are in use. Use this application at your own risk!
 
