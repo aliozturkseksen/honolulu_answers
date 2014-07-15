@@ -10,7 +10,7 @@ We used this repo to demonstrate how to script the Honolulu Answers app to deplo
 
     ```aws configure```
 
-Once your AWS CLI tools are set up, clone this repo and this command will build a Honolulu Answers application infrastructure and then deploy the app to it. *NOTE: To prevent OpsWorks errors, we've defaulted the instance size to ```c3.large```. You can find the CloudFormation code at [honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/infrastructure/config/honolulu.template)*.
+Once your AWS CLI tools are set up, clone this repo and this command will build a Honolulu Answers application infrastructure and then deploy the app to it. *NOTE: To prevent OpsWorks errors, we've defaulted the instance size to ```c3.large```. You can find the CloudFormation code at [honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/honolulu.template)*.
 
     sudo yum -y install git
     git clone https://github.com/stelligent/honolulu_answers.git
