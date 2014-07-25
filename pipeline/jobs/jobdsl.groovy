@@ -1,8 +1,8 @@
 static Closure pipelineConfig(String task, String stage) {
     return { project ->
-        def pipelineConfig = project / 'properties' / 'se.diabol.jenkins.pipeline.PipelineProperty' 
+        def pipelineConfig = project / 'properties' / 'se.diabol.jenkins.pipeline.PipelineProperty'
         pipelineConfig << { stageName stage }
-        pipelineConfig << { taskName task }      
+        pipelineConfig << { taskName task }
     }
 }
 
@@ -30,14 +30,14 @@ def create_view(pipeline, triggerjob) {
 
 def pipelines =  [
   "Continuous Delivery Pipeline":[
-    "commit":["trigger", "commit"], 
-    "acceptance": ["build-and-deploy-vpc", "test-application", "terminate-environment"]
+    "commit":["trigger", "commit"],
+    "acceptance": ["create-environment-acceptance", "run-infrastructure-tests", "terminate-environment-acceptance"]
     ],
-  "Production Delivery Pipeline":[
-    "preprod" : ["production-trigger", "build-and-deploy-for-prod-vpc", "smoke-test"], 
-    "production" : ["bluegreen"]
-    ]
+    "exploratory" : ["approve-reject-exploratory"],
+    "capacity" : ["launch-environment-capacity"],
+    "pre-production" : ["approve-reject-preprod", "launch-preprod-environment", "blue-green-deployment"]
   ]
+]
 
 pipelines.each { pipeline, stages ->
   stageList = stages.keySet().toArray()
@@ -50,13 +50,13 @@ pipelines.each { pipeline, stages ->
         joblist.add([job, stage])
       }
     }
-    
+
     [*joblist, null].collate(2, 1, false).each { currentJob, nextJob ->
     jobName = currentJob[0]
     nextJobName = nextJob == null ? null : nextJob[0]
     stage = currentJob[1]
 
-    job {  
+    job {
       println "configuring ${jobName}'s pipeline config: ${jobName} / ${stage}"
       configure pipelineConfig(jobName, stage)
       name "${jobName}-dsl"
@@ -100,8 +100,8 @@ pipelines.each { pipeline, stages ->
 }
 
 // self service jobs
-job {  
-  name "self-service-environment-create-dsl"
+job {
+  name "self-service-create-dsl"
   parameters {
     stringParam("email", "", "The email address of the owner of the environment.")
     stringParam("SHA", "HEAD", "The Git SHA of the revision you want to deploy. The default is HEAD, which will just get the latest code from the repo.")
@@ -115,7 +115,7 @@ job {
     }
   }
   steps {
-    shell("pipeline/self-service-build-and-deploy-vpc.sh")
+    shell("pipeline/self-service-create.sh")
   }
   wrappers {
     rvm("1.9.3")
@@ -129,8 +129,8 @@ job {
   }
 }
 
-job {  
-  name "self-service-environment-delete-dsl"
+job {
+  name "self-service-delete-dsl"
    parameters {
     stringParam("stack_name", "", "The CloudFormation stack name to clean up")
    }
