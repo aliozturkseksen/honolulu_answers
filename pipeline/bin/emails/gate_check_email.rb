@@ -34,7 +34,7 @@ resp = ses.send_email(
         # required
         data: "
 \n
-<p>The in-depth testing of your pipeline have completed successfully. This environment is now a production candidate. Run the <a href=\"#{opts[:jenkinsurl]}/job/gate-control/build\">gate-control job</a> with the pipeline instance id listed below and approve or deny the pipeline to proceed to further stages.</p>
+<p>The in-depth testing of your pipeline have completed successfully. This environment is now a production candidate. Run the <a href=\"#{opts[:jenkinsurl]}/job/preprod-control/build\">preprod-control job</a> with the pipeline instance id listed below and approve or deny the pipeline to proceed to further stages.</p>
 \n
 <p><strong>Pipeline Instance ID:</strong> #{opts[:pipelineid]}</p>
 \n",

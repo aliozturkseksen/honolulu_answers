@@ -98,6 +98,52 @@ pipelines.each { pipeline, stages ->
   }
 }
 
+// Special configuration pipeline jobs
+job {
+ name "preprod-control"
+  parameters {
+    choiceParam("accept", ["reject", "accept"], "Select accept if the environment should progress through a production deployment")
+    stringParam("pipeline_instance_id", "", "This is the id of the pipeline you wish to accept or reject")
+  }
+  multiscm {
+   git("git@github.com:stelligent/honolulu_answers_cookbooks.git", "master") { node ->
+     node / skipTag << "true"
+   }
+   git("git@github.com:stelligent/honolulu_answers.git", "master") { node ->
+     node / skipTag << "true"
+   }
+ }
+ steps {
+   shell("pipeline/preprod-control.sh")
+ }
+ wrappers {
+   rvm("1.9.3")
+ }
+}
+
+job {
+ name "exploratory-control"
+  parameters {
+    choiceParam("accept", ["reject", "accept"], "Select accept if the environment passes user accetance testing")
+    stringParam("pipeline_instance_id", "", "This is the id of the pipeline you wish to accept or reject")
+  }
+  multiscm {
+   git("git@github.com:stelligent/honolulu_answers_cookbooks.git", "master") { node ->
+     node / skipTag << "true"
+   }
+   git("git@github.com:stelligent/honolulu_answers.git", "master") { node ->
+     node / skipTag << "true"
+   }
+ }
+ steps {
+   shell("pipeline/exploratory-control.sh")
+ }
+ wrappers {
+   rvm("1.9.3")
+ }
+}
+
+
 // self service jobs
 job {
   name "self-service-create-dsl"
