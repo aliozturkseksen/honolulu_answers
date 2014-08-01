@@ -5,8 +5,8 @@ export SHA=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domain.new('
 ruby pipeline/bin/emails/exploratory_check_email.rb \
 --region $region \
 --pipelineid $pipeline_instance_id \
---recipient tech@stelligent.com \
---sender tech@stelligent.com \
+--recipient paul.duvall@stelligent.com \
+--sender paul.duvall@stelligent.com \
 --jenkinsurl jenkins.$domain \
 --application "Honolulu" \
 --gitsha $SHA
