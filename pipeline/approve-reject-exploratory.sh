@@ -2,7 +2,14 @@
 
 export SHA=`ruby -e 'require "opendelivery"' -e "puts OpenDelivery::Domain.new('$region').get_property '$sdb_domain','$pipeline_instance_id', 'SHA'"`
 
-ruby pipeline/bin/emails/exploratory_check_email.rb \
+echo "Checking email"
+
+echo "Pipeline $pipeline_instance_id"
+echo "Region $region"
+echo "Domain $domain"
+echo "SHA $SHA"
+
+echo ruby pipeline/bin/emails/exploratory_check_email.rb \
 --region $region \
 --pipelineid $pipeline_instance_id \
 --recipient paul.duvall@stelligent.com \
@@ -10,6 +17,9 @@ ruby pipeline/bin/emails/exploratory_check_email.rb \
 --jenkinsurl jenkins.$domain \
 --application "Honolulu" \
 --gitsha $SHA
+
+echo "done with email"
+
 
 ruby pipeline/bin/gate_check.rb \
 --region $region \
