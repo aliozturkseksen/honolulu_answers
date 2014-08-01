@@ -35,7 +35,7 @@ resp = ses.send_email(
         # required
         data: "
 \n
-<p>The acceptance stage of your continuous delivery pipeline has completed and is ready for some more exploratory testing. Create a <a href=\"#{opts[:jenkinsurl]}/job/self-service-environment-create-dsl/build\">self service environment</a> with the Git SHA listed below, and run your exploratory tests.</p>
+<p>The acceptance stage of your continuous delivery pipeline has completed and is ready for some more exploratory testing. Create a <a href=\"#{opts[:jenkinsurl]}/job/self-service-create-dsl/build\">self service environment</a> with the Git SHA listed below, and run your exploratory tests.</p>
 
 <p><strong>Git SHA:</strong> #{opts[:gitsha]}</p>
 
