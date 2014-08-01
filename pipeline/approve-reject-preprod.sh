@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 ruby .pipeline/bin/emails/gate_check_email.rb \
---region $region \
+--region "us-east-1" \
 --pipelineid $pipeline_instance_id \
 --recipient tech@stelligent.com \
 --sender tech@stelligent.com \

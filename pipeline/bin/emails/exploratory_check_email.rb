@@ -4,7 +4,7 @@ require 'aws-sdk-core'
 opts = Trollop::options do
   opt :region, "The region that you're working in.", :type => String, :required => true
   opt :pipelineid, "ID of the pipeline to email", :type => String, :required => true
-  opt :recipient, "Email address of tntended email recipient", :type => String, :required => true
+  opt :recipient, "Email address of intended email recipient", :type => String, :required => true
   opt :sender, "Email address of sender", :type => String, :required => true
   opt :jenkinsurl, "Url to access jenkins on", :type => String, :required => true
   opt :gitsha, "Git SHA used", :type => String, :required => true
