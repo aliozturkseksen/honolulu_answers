@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-ruby .pipeline/bin/emails/gate_check_email.rb \
+ruby .pipeline/bin/emails/preprod_check_email.rb \
 --region "us-east-1" \
 --pipelineid $pipeline_instance_id \
 --recipient paul.duvall@stelligent.co \
