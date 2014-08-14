@@ -3,8 +3,8 @@
 ruby .pipeline/bin/emails/preprod_check_email.rb \
 --region "us-east-1" \
 --pipelineid $pipeline_instance_id \
---recipient paul.duvall@stelligent.co \
---sender paul.duvall@stelligent.co \
+--recipient jonny@stelligent.co \
+--sender jonny@stelligent.co \
 --jenkinsurl samplepipeline.$domain \
 --application "Honolulu"
 
