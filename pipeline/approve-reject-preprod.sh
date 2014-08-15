@@ -8,7 +8,7 @@ ruby pipeline/bin/emails/preprod_check_email.rb \
 --recipient jonny@stelligent.com \
 --sender jonny@stelligent.com \
 --jenkinsurl samplepipeline.$domain \
---application "Honolulu"
+--application "Honolulu" \
 --gitsha $SHA
 
 ruby pipeline/bin/gate_check.rb \
