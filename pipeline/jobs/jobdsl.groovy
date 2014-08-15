@@ -106,10 +106,10 @@ job {
     stringParam("pipeline_instance_id", "", "This is the id of the pipeline you wish to accept or reject")
   }
   multiscm {
-   git("git@github.com:stelligent/honolulu_answers_cookbooks.git", "master") { node ->
+   git("https://github.com/stelligent/honolulu_answers_cookbooks.git", "master") { node ->
      node / skipTag << "true"
    }
-   git("git@github.com:stelligent/honolulu_answers.git", "master") { node ->
+   git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
      node / skipTag << "true"
    }
  }
@@ -128,10 +128,10 @@ job {
     stringParam("pipeline_instance_id", "", "This is the id of the pipeline you wish to accept or reject")
   }
   multiscm {
-   git("git@github.com:stelligent/honolulu_answers_cookbooks.git", "master") { node ->
+   git("https://github.com/stelligent/honolulu_answers_cookbooks.git", "master") { node ->
      node / skipTag << "true"
    }
-   git("git@github.com:stelligent/honolulu_answers.git", "master") { node ->
+   git("https://github.com/stelligent/honolulu_answers.git", "master") { node ->
      node / skipTag << "true"
    }
  }
