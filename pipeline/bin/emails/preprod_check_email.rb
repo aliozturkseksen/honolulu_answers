@@ -12,7 +12,7 @@ opts = Trollop::options do
 end
 
 Aws.config[:region] = opts[:region]
-ses = Aws::SES.new
+ses = Aws::SES::Client.new
 
 resp = ses.send_email(
   # required
@@ -26,7 +26,7 @@ resp = ses.send_email(
     # required
     subject: {
       # required
-      data: "A #{opts[:application]} environment has passed the acceptance stage and is ready for exploratory testing!",
+      data: "A #{opts[:application]} environment has passed the preprod stage and is ready for production!",
       charset: "utf-8",
     },
     # required
@@ -35,7 +35,7 @@ resp = ses.send_email(
         # required
         data: "
 \n
-<p>The acceptance stage of your continuous delivery pipeline has completed and is ready for some more exploratory testing. Create a <a href=\"#{opts[:jenkinsurl]}/job/self-service-create-dsl/build\">self service environment</a> with the Git SHA listed below, and run your exploratory tests.</p>
+<p>The preprod stage of your continuous delivery pipeline has completed and is ready to be pushed to production!. Create a <a href=\"#{opts[:jenkinsurl]}/job/self-service-create-dsl/build\">self service environment</a> with the Git SHA listed below, and run your production deployment.</p>
 
 <p><strong>Git SHA:</strong> #{opts[:gitsha]}</p>
 

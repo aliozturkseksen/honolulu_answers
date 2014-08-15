@@ -12,7 +12,7 @@ opts = Trollop::options do
 end
 
 Aws.config[:region] = opts[:region]
-ses = Aws::SES.new
+ses = Aws::SES::Client.new
 
 resp = ses.send_email(
   # required
