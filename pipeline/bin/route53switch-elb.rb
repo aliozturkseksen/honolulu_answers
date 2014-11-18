@@ -20,10 +20,10 @@ def get_new_elb_address cfn, elb, stack_name
 end
 
 #route 53 and opsworks only run in us-east-1
-r53 = Aws::Route53.new(region: "us-east-1")
+r53 = Aws::Route53::Client.new(region: "us-east-1")
 # cfn needs to be in the same region as everything else, tho.
-elb = Aws::ElasticLoadBalancing.new(region: opts[:region])
-cfn = Aws::CloudFormation.new(region: opts[:region])
+elb = Aws::ElasticLoadBalancing::Client.new(region: opts[:region])
+cfn = Aws::CloudFormation::Client.new(region: opts[:region])
 
 # From CloudFormation, get the OpsWorks instance info. From OpsWorks, get the instance public IP.
 new_elb_address = get_new_elb_address cfn, elb, opts[:stackname]

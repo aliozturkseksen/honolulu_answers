@@ -39,10 +39,10 @@ def get_opsworks_instance_id cfn, stack_name
 end
 
 #route 53 and opsworks only run in us-east-1
-r53 = Aws::Route53.new(region: "us-east-1")
-ops = Aws::OpsWorks.new(region: "us-east-1")
+r53 = Aws::Route53::Client.new(region: "us-east-1")
+ops = Aws::OpsWorks::Client.new(region: "us-east-1")
 # cfn needs to be in the same region as everything else, tho.
-cfn = Aws::CloudFormation.new(region: opts[:region])
+cfn = Aws::CloudFormation::Client.new(region: opts[:region])
 
 # From CloudFormation, get the OpsWorks instance info. From OpsWorks, get the instance public IP.
 new_ip_address = get_new_ip_address cfn, ops, opts[:stackname]
