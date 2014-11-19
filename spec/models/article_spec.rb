@@ -6,7 +6,7 @@ describe Article do
   it { should have_many(:keywords).through :wordcounts }
   it { should have_many :wordcounts }
 
-  it { should respond_to :title }
+  it { should respond_to :title_paul }
   it { should respond_to :category }
   it { should respond_to :preview }
   it { should respond_to :tags }
