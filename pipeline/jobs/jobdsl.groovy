@@ -32,9 +32,9 @@ def pipelines =  [
   "Continuous Delivery Pipeline":[
     "commit":["trigger", "commit"],
     "acceptance": ["create-environment-acceptance", "run-infrastructure-tests", "terminate-environment-acceptance"],
+    "capacity" : ["performance-testing", "load-testing","chaos-testing", "penetration-testing", "launch-environment-capacity"],
     "exploratory" : ["approve-reject-exploratory"],
-    "capacity" : ["launch-environment-capacity"],
-    "pre-production" : ["approve-reject-preprod", "launch-preprod-environment", "blue-green-deployment"]
+    "production" : ["launch-prod-environment", "blue-green-deployment"]
   ]
 ]
 
