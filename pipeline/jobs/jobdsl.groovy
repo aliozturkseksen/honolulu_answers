@@ -34,7 +34,7 @@ def pipelines =  [
     "acceptance": ["create-environment-acceptance", "run-infrastructure-tests", "terminate-environment-acceptance"],
     "capacity" : ["launch-environment-capacity", "performance-testing", "load-testing","chaos-testing", "penetration-testing"],
     "exploratory" : ["approve-reject-exploratory"],
-    "production" : ["launch-prod-environment", "blue-green-deployment"]
+    "production" : ["approve-reject-prod", "launch-prod-environment", "blue-green-deployment"]
   ]
 ]
 
