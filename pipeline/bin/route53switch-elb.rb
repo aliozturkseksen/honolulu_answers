@@ -3,8 +3,8 @@ require 'trollop'
 require 'aws-sdk-core'
 
 opts = Trollop::options do
-  opt :subdomain, "The sub-domain that should be switched to point to the new address (just the subdomain. For example, for demo.stelligent.com, you'd punch in 'demo')", :type => String, :required => true
-  opt :hostedzone, "The hosted zone name that should be switched to point to the new address (This is the domain. For example, for demo.stelligent.com, you'd punch in 'stelligent.com')", :type => String, :required => true
+  opt :subdomain, "The sub-domain that should be switched to point to the new address (just the subdomain. For example, for demo.elasticoperations.com, you'd punch in 'demo')", :type => String, :required => true
+  opt :hostedzone, "The hosted zone name that should be switched to point to the new address (This is the domain. For example, for demo.elasticoperations.com, you'd punch in 'elasticoperations.com')", :type => String, :required => true
   opt :region, "The region that you're working in.", :type => String, :required => true
   opt :stackname, "The name of the CloudFormation stack that is intended to become the new production stack", :type => String, :required => true
 end

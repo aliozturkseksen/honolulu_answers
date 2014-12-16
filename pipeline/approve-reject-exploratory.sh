@@ -6,7 +6,7 @@ ruby pipeline/bin/emails/exploratory_check_email.rb \
 --region "us-east-1" \
 --pipelineid $pipeline_instance_id \
 --recipient "`cat /etc/admin_email`" \
---sender no-reply@demo.stelligent.com \
+--sender no-reply@demo.elasticoperations.com \
 --jenkinsurl samplepipeline.$domain \
 --application "Honolulu" \
 --gitsha $SHA
