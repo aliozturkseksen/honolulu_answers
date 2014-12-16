@@ -9,10 +9,10 @@ end
 stack_name = opts[:stackname]
 
 Aws.config[:region] = opts[:region]
-cfn = Aws::CloudFormation.new
-ops = Aws::OpsWorks.new
-elb = Aws::ElasticLoadBalancing.new
-ec2 = Aws::EC2.new
+cfn = Aws::CloudFormation::Client.new
+ops = Aws::OpsWorks::Client.new
+elb = Aws::ElasticLoadBalancing::Client.new
+ec2 = Aws::EC2::Client.new
 
 url = nil
 ops_stack_id = nil

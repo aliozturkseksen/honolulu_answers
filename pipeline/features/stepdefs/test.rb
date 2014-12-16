@@ -8,8 +8,8 @@ Given(/^I have the CloudFormation stack information to query$/) do
   expect(region).to be, "$region wasn't set in the local environment"
 
   # poll cfn for instance ID
-  cfn = Aws::CloudFormation.new region: region
-  elb = Aws::ElasticLoadBalancing.new region: region
+  cfn = Aws::CloudFormation::Client.new region: region
+  elb = Aws::ElasticLoadBalancing::Client.new region: region
 
   @address = elb.describe_load_balancers(load_balancer_names: cfn.describe_stack_resources(stack_name: @stackname).stack_resources.collect {|rsc| if rsc.resource_type == "AWS::ElasticLoadBalancing::LoadBalancer" then rsc.physical_resource_id end }.compact).load_balancer_descriptions.first.dns_name
   
