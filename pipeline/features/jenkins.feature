@@ -7,6 +7,7 @@ Feature: Scripted install of Jenkins
     Background:
         Given I am testing the local environment
 
+    @opsworks
     Scenario: The OpsWorks stack is set up correctly
         When I lookup the OpsWorks stack for the local machine
         Then I should see a stack with one layer
