@@ -17,7 +17,9 @@ Once your AWS CLI tools are set up, clone this repo and this command will build 
     cd honolulu_answers/
     aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM"
 
-(*NOTE: Alternatively, you can use Jenkins to run through the above steps. However, you'll need to install Jenkins first. To do this, see [Launching a Jenkins Environment](https://github.com/stelligent/honolulu_jenkins_cookbooks/wiki/Launching-a-Jenkins-Environment))*. After about 50 minutes, an Opsworks stack is created and launched. To get details:
+(*NOTE: Alternatively, you can use Jenkins to run through the above steps. However, you'll need to install Jenkins first. To do this, see [honolulu-jenkins-cookbooks](https://github.com/stelligent/honolulu_jenkins_cookbooks))*.
+
+After about 50 minutes, an Opsworks stack is created and launched. To get details:
 
 1. Log into the [OpsWorks](http://console.aws.amazon.com/opsworks) console
 1. You should see an OpsWorks stack listed named **Honolulu Answers** -- click on it. If you see more than one listed (because you kicked it off a few times), they are listed in alphabetical-then-chronological order. So the last *Honolulu Answers* stack listed will be the most recent one.
