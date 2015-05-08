@@ -39,7 +39,7 @@ resp = ses.send_email(
 
 <p><strong>Git SHA:</strong> #{opts[:gitsha]}</p>
 
-<p>After testing the environment, run the <a href=\"#{opts[:jenkinsurl]}/job/exploratory-control/build\">exploratory-control job</a> with the pipeline instance id listed below, and approve or deny the pipeline to proceed to further stages.</p>
+<p>After testing the environment, run the <a href=\"#{opts[:jenkinsurl]}/job/preprod-control/build\">preprod-control job</a> with the pipeline instance id listed below, and approve or deny the pipeline to proceed to further stages.</p>
 \n
 <p><strong>Pipeline Instance ID:</strong> #{opts[:pipelineid]}</p>
 \n",
