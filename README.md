@@ -5,26 +5,58 @@ We used this repo to demonstrate how to script the Honolulu Answers app to deplo
 ## Setting up the Honolulu Answers application
 #### Prereqs:
 * [AWS Access Keys](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html) ready and enabled.
-* [AWS CLI tool](https://aws.amazon.com/cli/) installed and configured. The quickest way to do this is by launching an Amazon Linux EC2 instance (as the AWS CLI is preinstalled), but you can [install it on your laptop as well](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html), and then configure the application by using the command:
+* [AWS CLI tool](https://aws.amazon.com/cli/) installed and configured. Directions for setting up a development environment with both the AWS CLI tool and Ruby installed can be found [here](https://github.com/stelligent/stelligent_commons/wiki/Development-Environment-Setup).
+ 
+The AWS CLI tool is configured with the command:
 
+```
+aws configure
+```
 
-    ```aws configure```
+## Complete Pipeline Installation (Recommended):
+We have created and recommend the automation for a complete pipeline, using Jenkins, running the Honolulu Answers application.
 
-Once your AWS CLI tools are set up, clone this repo and this command will build a Honolulu Answers application infrastructure and then deploy the app to it. *NOTE: To prevent OpsWorks errors, we've defaulted the instance size to ```c3.large```. You can find the CloudFormation code at [honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/honolulu.template)*.
+Follow the directions in our [honolulu-jenkins-cookbook](https://github.com/stelligent/honolulu_jenkins_cookbooks) repository.
 
-    sudo yum -y install git
-    git clone https://github.com/stelligent/honolulu_answers.git
-    cd honolulu_answers/
-    aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM"
+This will create a VPC, 2 private subnets, a public subnet, a Jenkins load balancer, an application load balancer, and the following instances:
+* Bastion host
+* NAT server
+* Jenkins server
+* Rails-app server (c3.large)
 
-(*NOTE: Alternatively, you can use Jenkins to run through the above steps. However, you'll need to install Jenkins first. To do this, see [honolulu-jenkins-cookbooks](https://github.com/stelligent/honolulu_jenkins_cookbooks))*.
+## Honolulu Answers Standalone Deployment:
 
+First of all, clone the repository:
+
+```
+sudo yum -y install git
+git clone https://github.com/stelligent/honolulu_answers.git
+cd honolulu_answers/
+```
+
+The application can be launched along with a VPC or you can launch it into your own VPC.
+#### Create the VPC and the Honolulu Application Stack
+
+The following command will create a VPC for you. It will create the VPC, 2 private subnets, a public subnet, a NAT server, and a Bastion host. You will need to provide a key pair name for bastion SSH access. (You can find the CloudFormation code at [vpc_and_honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/vpc_and_honolulu.template))
+
+```
+aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/vpc_and_honolulu.template`" --region <your_region> --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=KeyName,ParameterValue="<key_name>"
+```
+
+#### Create the Honolulu Application Stack providing your VPC
+To launch the application into your own VPC, the VPC must contain 2 private subnets and a public subnet. Provide the subnet and VPC ids to the following command: (You can find the CloudFormation code at [honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/honolulu.template))
+
+```
+aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=privateSubnetA,ParameterValue="<your_first_private_subnet_id>" ParameterKey=privateSubnetB,ParameterValue="<your_second_private_subnet_id>" ParameterKey=publicSubnet,ParameterValue="<your_public_subnet_id>" ParameterKey=privateSubnetA,ParameterValue="<your_vpc_id>" 
+```
+## Accessing the Honolulu Answers Application
 After about 50 minutes, an Opsworks stack is created and launched. To get details:
 
 1. Log into the [OpsWorks](http://console.aws.amazon.com/opsworks) console
 1. You should see an OpsWorks stack listed named **Honolulu Answers** -- click on it. If you see more than one listed (because you kicked it off a few times), they are listed in alphabetical-then-chronological order. So the last *Honolulu Answers* stack listed will be the most recent one.
 1. Click on **Instances** within the OpsWorks stack you selected.
-1. Once the Instance turns green and shows its status as *Online*,you can click the IP address link and the Honolulu Answers application will load!
+1. Once the Instance turns green and shows its status as *Online*, click on **Layers** on the left.
+1. Click the link in the ELB Layer and the Honolulu Answers application will load!
 
 #### Screencast
 [![Launch Honolulu App in AWS](https://s3.amazonaws.com/stelligent_website/casestudies/launch_honolulu_app.jpg)](http://youtu.be/80wVgZU2j_E)
