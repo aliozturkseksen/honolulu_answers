@@ -82,9 +82,6 @@ After about 50 minutes, an Opsworks stack is created and launched. To get detail
 1. Once the Instance turns green and shows its status as *Online*, click on **Layers** on the left.
 1. Click the link in the ELB Layer and the Honolulu Answers application will load!
 
-#### Screencast
-[![Launch Honolulu App in AWS](https://s3.amazonaws.com/stelligent_website/casestudies/launch_honolulu_app.jpg)](http://youtu.be/80wVgZU2j_E)
-
 ### Deleting provisioned AWS resources
 * Go to the [CloudFormation](http://console.aws.amazon.com/cloudformation) console and delete the corresponding CloudFormation stack.
 
