@@ -18,7 +18,7 @@ We have created and recommend the automation for a complete pipeline, using Jenk
 
 Follow the directions in our [honolulu-jenkins-cookbook](https://github.com/stelligent/honolulu_jenkins_cookbooks) repository.
 
-This will create a VPC, 2 private subnets, a public subnet, a Jenkins load balancer, an application load balancer, and the following instances:
+This will create a VPC, two private subnets, a public subnet, a Jenkins load balancer, an application load balancer, and the following instances:
 * Bastion host
 * NAT server
 * Jenkins server
@@ -37,14 +37,14 @@ cd honolulu_answers/
 The application can be launched along with a VPC or you can launch it into your own VPC.
 #### Create the VPC and the Honolulu Application Stack
 
-The following command will create a VPC for you. It will create the VPC, 2 private subnets, a public subnet, a NAT server, and a Bastion host. You will need to provide a key pair name for bastion SSH access. (You can find the CloudFormation code at [vpc_and_honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/vpc_and_honolulu.template))
+The following command will create a VPC for you. It will create the VPC, two private subnets, a public subnet, a NAT server, and a Bastion host. You will need to provide a key pair name for bastion SSH access. (You can find the CloudFormation code at [vpc_and_honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/vpc_and_honolulu.template))
 
 ```
 aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/vpc_and_honolulu.template`" --region <your_region> --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=KeyName,ParameterValue="<key_name>"
 ```
 
 #### Create the Honolulu Application Stack providing your VPC
-To launch the application into your own VPC, the VPC must contain 2 private subnets and a public subnet. Provide the subnet and VPC ids to the following command: (You can find the CloudFormation code at [honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/honolulu.template))
+To launch the application into your own VPC, the VPC must contain two private subnets and a public subnet. Provide the subnet and VPC ids to the following command: (You can find the CloudFormation code at [honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/honolulu.template))
 
 ```
 aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=privateSubnetA,ParameterValue="<your_first_private_subnet_id>" ParameterKey=privateSubnetB,ParameterValue="<your_second_private_subnet_id>" ParameterKey=publicSubnet,ParameterValue="<your_public_subnet_id>" ParameterKey=privateSubnetA,ParameterValue="<your_vpc_id>" 
