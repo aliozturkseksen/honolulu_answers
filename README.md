@@ -35,20 +35,44 @@ cd honolulu_answers/
 ```
 
 The application can be launched along with a VPC or you can launch it into your own VPC.
-#### Create the VPC and the Honolulu Application Stack
+### Create the VPC and the Honolulu Application Stack
 
-The following command will create a VPC for you. It will create the VPC, two private subnets, a public subnet, a NAT server, and a Bastion host. You will need to provide a key pair name for bastion SSH access. (You can find the CloudFormation code at [vpc_and_honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/vpc_and_honolulu.template))
+The following command will create a VPC for you. It will create the VPC, two private subnets, a public subnet, a NAT server, and a Bastion host. You will need to provide a key pair name for Bastion SSH access. (You can find the CloudFormation code at [vpc_and_honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/vpc_and_honolulu.template))
 
 ```
 aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/vpc_and_honolulu.template`" --region <your_region> --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=KeyName,ParameterValue="<key_name>"
 ```
 
-#### Create the Honolulu Application Stack providing your VPC
+**Parameters**
+* **stack-name**: You can name the stack anything you'd like.
+* **region**: The region to deploy the stack. Must be same region as the key pair used. A list of regions and availability zones can be found [here](http://www.stelligent.com/cloud/list-all-the-availability-zones/). Example: us-west-2
+* **KeyName**: The name of the Key Pair that will be used to access the created Bastion host. See [Creating an EC2 Key Pair](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-keypair.html).  
+
+
+### Create the Honolulu Application Stack providing your VPC
 To launch the application into your own VPC, the VPC must contain two private subnets and a public subnet. Provide the subnet and VPC ids to the following command: (You can find the CloudFormation code at [honolulu.template](https://github.com/stelligent/honolulu_answers/blob/master/pipeline/config/honolulu.template))
 
 ```
-aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=privateSubnetA,ParameterValue="<your_first_private_subnet_id>" ParameterKey=privateSubnetB,ParameterValue="<your_second_private_subnet_id>" ParameterKey=publicSubnet,ParameterValue="<your_public_subnet_id>" ParameterKey=privateSubnetA,ParameterValue="<your_vpc_id>" 
+aws cloudformation create-stack --stack-name HonoluluAnswers --template-body "`cat pipeline/config/honolulu.template`" --region us-west-2  --disable-rollback --capabilities="CAPABILITY_IAM" --parameters ParameterKey=vpc,ParameterValue="<your_vpc_id>" ParameterKey=privateSubnetA,ParameterValue="<your_first_private_subnet_id>" ParameterKey=privateSubnetB,ParameterValue="<your_second_private_subnet_id>" ParameterKey=publicSubnet,ParameterValue="<your_public_subnet_id>" 
 ```
+
+**Parameters**
+* **stack-name**: You can name the stack anything you'd like.
+* **region**: The region to deploy the stack. Must be same region as the key pair used. A list of regions and availability zones can be found [here](http://www.stelligent.com/cloud/list-all-the-availability-zones/). Example: us-west-2
+* **vpc**: The id of the VPC of which to deploy the stack. Find them in _AWS Console->VPC->Your VPCs_. Example: vpc-1a2b3c4d
+* **privateSubnetA**: A private subnet in the VPC above. Find it in _AWS Console->VPC->Subnets_. Example: subnet-5a6b7c8d
+* **privateSubnetB**: Another private subnet in the VPC above. Find it in _AWS Console->VPC->Subnets_. Example: subnet-1234adcd
+* **privateSubnetA**: A public subnet in the VPC above. Find it in _AWS Console->VPC->Subnets_. Example: subnet-01dc23ba
+
+#### Optional Parameters
+You can optionally overwrite the following parameters in either stack, whether or not you provide VPC/Subnets.
+After --parameters you can add any or all of the following parameters in the format:  ParameterKey=<key_listed_below>,ParameterValue="<your_value>"
+* **DBUser**: User for the DB created for the Honolulu Answers application. Default: "honolulu".
+* **DBPassword**: Password for the DB User. Default: "password".
+* **DBName**: Name of the DB created. Default: "honoluluanswers".
+* **SearchifyApiURL**: URL to a Searchify account. Default: "http://:oh5H697EC1TRlc@2zqe.api.searchify.com".
+* **SearchifyIndex**: The index of Searchify to use. Default: "hnlgovanswers-dev"
+
 ## Accessing the Honolulu Answers Application
 After about 50 minutes, an Opsworks stack is created and launched. To get details:
 
