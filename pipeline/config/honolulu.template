@@ -93,7 +93,7 @@
         "DBName": { "Ref": "DBName" },
         "DBSubnetGroupName": { "Ref" : "DBSubnetGroup"},
         "Engine": "postgres",
-        "MultiAZ" : true,
+        "MultiAZ" : false,
         "MasterUsername": { "Ref" : "DBUser"},
         "DBInstanceClass": "db.t1.micro",
         "VPCSecurityGroups": [ { "Ref": "DBSecurityGroup" }, { "Ref" : "HonoluluAnswersSecurityGroup"} ],
