@@ -110,7 +110,7 @@
                     "FromPort" : "1",
                     "ToPort" : "65535", 
                     "CidrIp": "0.0.0.0/0",
-                    "IpProtocol": "tcp"
+                    "IpProtocol": "-1"
                 }
             ],
             "VpcId": {
@@ -122,6 +122,14 @@
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
         "GroupDescription": "Security group that the Honolulu Rails server and RDS server will both be in",
+            "SecurityGroupIngress": [
+                {
+                    "FromPort" : "1",
+                    "ToPort" : "65535", 
+                    "CidrIp": "0.0.0.0/0",
+                    "IpProtocol": "-1"
+                }
+            ],
         "VpcId" : { "Ref" : "vpc"}
       }
     },
@@ -331,6 +339,13 @@
                 "Ref": "vpc"
             },
             "SecurityGroupIngress": [
+            "SecurityGroupIngress": [
+                {
+                    "FromPort" : "1",
+                    "ToPort" : "65535", 
+                    "CidrIp": "0.0.0.0/0",
+                    "IpProtocol": "-1"
+                },
                 {
                     "IpProtocol": "tcp",
                     "FromPort": "80",
