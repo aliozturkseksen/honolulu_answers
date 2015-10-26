@@ -184,7 +184,7 @@
           "BundlerVersion": "1.3.5",
           "PassengerVersion": "4.0.29",
           "RailsStack": "apache_passenger",
-          "RubyVersion": "1.9.3",
+          "RubyVersion": "2.0.0",
           "RubygemsVersion": "2.1.11"
         },
         "Packages": [
