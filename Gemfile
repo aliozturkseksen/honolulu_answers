@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 #gem 'bundler', '~> 1.3.0.pre.5'		        # Bundler version to match what is used on Heroku.
 
 ## Essentials
-ruby '1.9.3'                              # Ruby!
+ruby '2.0.0'                              # Ruby!
 gem 'rails', '3.2.16'                     # Rails!
 gem 'pg'                                  # PostgreSQL, the database server
 gem 'thin'                                # Web server
