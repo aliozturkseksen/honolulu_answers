@@ -339,7 +339,6 @@
                 "Ref": "vpc"
             },
             "SecurityGroupIngress": [
-            "SecurityGroupIngress": [
                 {
                     "FromPort" : "1",
                     "ToPort" : "65535", 
