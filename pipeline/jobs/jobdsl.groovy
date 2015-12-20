@@ -117,7 +117,7 @@ job {
    shell("pipeline/preprod-control.sh")
  }
  wrappers {
-   rvm("1.9.3")
+   rvm("2.2.0")
  }
 }
 
@@ -139,7 +139,7 @@ job {
    shell("pipeline/exploratory-control.sh")
  }
  wrappers {
-   rvm("1.9.3")
+   rvm("2.2.0")
  }
 }
 
